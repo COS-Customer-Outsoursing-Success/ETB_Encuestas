@@ -1,0 +1,51 @@
+{
+  "ETB_APP": {
+    "schema": "bbdd_cos_bog_etb_auditorias_encuestas",
+    "table": "tb_asignacion_app_etb_ds",
+    "nombre_asignacion": "asignacion_app_etb",
+
+    "telefonos": [
+      "telefono_contacto_movil"
+    ],
+    
+    "columnas_fecha": ["fecha_transaccion", "fecha_asignacion"],
+
+    "renombrar_columnas": {
+    },
+
+    "columnas_necesarias": [
+      "fecha_transaccion", "tipo_transaccion", "canal_1", "segmento", "numero_conexion",
+      "nombre_cliente", "telefono_contacto_movil", "plan", "usuario_mietb",
+      "fecha_asignacion", "anio", "periodo", "nombre_base", "hoja"
+    ],
+    
+    "table_duplicados": "tb_asignacion_app_etb_duplicate_ds",
+    "cols_duplicados": []
+  },
+
+  "ETB_Redes_Sociales": {
+    "schema": "bbdd_cos_bog_etb_auditorias_encuestas",
+    "table": "tb_asignacion_redes_sociales_etb_ds",
+    "nombre_asignacion": "asignacion_redes_etb",
+
+    "telefonos": [
+      "telefono_contacto_1",
+      "telefono_contacto_2",
+      "telefono_contacto_3"
+    ],
+    
+    "columnas_fecha": ["fecha_asignacion"],
+
+    "renombrar_columnas": {
+    },
+
+    "columnas_necesarias": [
+      "id", "canal", "fecha", "asesor", "tipificacion", "causal_pqr", "sintoma_pqr", "numero_pqr", "numero_identificacion", "nombre_cliente",
+      "telefono_contacto_1", "telefono_contacto_2", "telefono_contacto_3",
+      "fecha_asignacion", "anio", "periodo", "nombre_base","hoja"
+    ],
+    
+    "table_duplicados": "tb_asignacion_redes_sociales_etb_duplicate_ds",
+    "cols_duplicados": []
+  }
+}

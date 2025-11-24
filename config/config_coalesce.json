@@ -1,0 +1,15 @@
+{
+
+  "Allianz_Crosseling": {
+    "schema": "bbdd_cos_bog_allianz",
+    "table": "tb_asignacion_crosseling_coalesce",
+    "cuenta": "tomador",
+    "sql_file_path": "_sql_coalesce_allianz_crosseling.sql",
+    "phone_columns": [
+      "tel1_org", 
+      "tel2_org", 
+      "tel3_org", 
+      "telefono_intermediario"
+    ]
+  }
+}

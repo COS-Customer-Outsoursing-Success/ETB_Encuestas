@@ -1,0 +1,55 @@
+{
+
+  "ALLIANZ": {
+    "pass_vcdl": "1001185516",  
+    "campana": "crosseling",
+    "server_vcdl": "soulphone-nine.groupcos.com.co",
+    
+    "configuracion_listas": {
+        "campana_vicidial": "ALLIANZ",
+        "campaign_id": "ALLIANZ - 000",
+        "numero_maximo_listas": 30000000
+    },
+
+    "custom_fields": {
+        "VENDOR LEAD CODE:": "\"num_documento\"",
+        "SOURCE ID:": "\"tomador\"",
+        "PHONE NUMBER:": "\"phone\"",
+        "TITLE:": "(none)",
+        "FIRST NAME:": "\"nombre_completo\"",
+        "MIDDLE INITIAL:": "(none)",
+        "LAST NAME:": "(none)",
+        "ADDRESS1:": "(none)",
+        "ADDRESS2:":  "\"tomador\"",
+        "ADDRESS3:": "(none)",
+        "CITY:": "\"departamento\"",
+        "STATE:": "(none)",
+        "PROVINCE:": "(none)",
+        "POSTAL CODE:": "(none)",
+        "COUNTRY CODE:": "(none)",
+        "GENDER:": "(none)",
+        "DATE OF BIRTH:": "(none)",
+        "ALT PHONE:": "(none)",
+        "EMAIL:": "\"email\"",
+        "SECURITY PHRASE:": "(none)",
+        "COMMENTS:": "(none)",
+        "RANK:": "(none)",
+        "OWNER:": "(none)",
+        "NOMBRECLIENTE:": "\"nombre_completo\"",
+        "NUMDOCUMENTO:": "\"num_documento\"",
+        "ESTADOCIVIL:": "\"estado_civil\"",
+        "GENERO:": "\"genero\"",
+        "TOMADOR:": "\"tomador\"",
+        "EDADCLIENTE:": "\"edad\"", 
+        "TEL1ORG:": "\"phone\"",
+        "PROFESION:": "\"profesion\"",
+        "BENEFICIO:": "\"beneficio\"",
+        "INTERMEDIARIOAGENTE:": "\"agente\"",
+        "CLAVEINTERMEDIARIO:": "\"clave\"",
+        "TELEFONOINTERMEDIARIO:": "\"telefono_intermediario\"",
+        "CORREO DELINTERMEDIARIO:": "\"correo_del_intermediario\"",
+        "DIRECTORCOMERCIAL:": "\"director_comercial\"",
+        "CORREODIRECTORCOMERCIAL:": "\"correo_director_comercial\""
+      } 
+  }
+}

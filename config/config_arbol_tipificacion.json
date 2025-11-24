@@ -1,0 +1,12 @@
+{
+
+    "Allianz Soul Renovaciones Autos": {
+    
+    "schema": "bbdd_cos_bog_allianz",
+    "table": "tb_arbol_tipificacion_soul_allianz_renovaciones_autos",
+    
+    "nombre_arbol": "soul_allianz_renovaciones_autos"
+
+  }
+  
+}

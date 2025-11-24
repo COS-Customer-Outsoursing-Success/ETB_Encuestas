@@ -1,0 +1,32 @@
+{
+    "Crosseling" : {
+
+        "campana": "Crosseling",
+        "crm": "CRM2",
+        "nombre_formulario" : "ALLIANZ",
+        "mapping": {
+
+            "tomador": "TOMADOR",
+            "nombre_cliente": "NOMBRE CLIENTE",
+            "num_documento": "NUM DOCUMENTO",
+            "tel1_org": "Tel1_Org",
+            "tel2_org": "Tel2_Org",
+            "tel3_org": "Tel3_Org",
+            "correo": "CORREO",
+            "edad": "EDAD",
+            "municipio": "MUNICIPIO",
+            "departamento": "DEPARTAMENTO",
+            "genero": "GENERO",
+            "tipo_documento": "TIPO DOCUMENTO",
+            "mix": "Mix",
+            "cross": "Cross",
+            "clave": "Clave",
+            "agente": "Agente",
+            "telefono_intermediario": "Telefono intermediario",
+            "correo_del_intermediario": "Correo del intermediario",
+            "correo_director_comercial": "Correo Director Comercial"
+
+        }
+    }
+}
+
