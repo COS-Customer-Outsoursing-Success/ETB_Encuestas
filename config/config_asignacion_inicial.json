@@ -47,5 +47,90 @@
     
     "table_duplicados": "tb_asignacion_redes_sociales_etb_duplicate_ds",
     "cols_duplicados": []
+  },
+
+  "ETB_VC_Pymes": {
+    "schema": "bbdd_cos_bog_etb_auditorias_encuestas",
+    "table": "tb_asignacion_vc_pymes_etb_ds",
+    "nombre_asignacion": "asignacion_pymes_etb",
+
+    "telefonos": [
+      "fijo_1", 
+      "fijo_2", 
+      "fijo_3", 
+      "movil_1", 
+      "movil_2"
+    ],
+    
+    "columnas_fecha": ["fecha_asignacion"],
+
+    "renombrar_columnas": {
+      "falla_masiva_" : "falla_masiva"
+    },
+
+    "columnas_necesarias": [
+      "numero_documento", "nombre_cliente", "modelo_segmentacion", 
+      "tecnologia_cliente", "c_calificacion_2021", "falla_masiva",
+      "fijo_1", "fijo_2", "fijo_3", "movil_1", "movil_2", 
+      "fecha_asignacion", "anio", "periodo", "nombre_base","hoja"
+    ],
+    
+    "table_duplicados": "tb_asignacion_vc_pymes_etb_duplicate_ds",
+    "cols_duplicados": ["numero_documento", "periodo"]
+  },
+
+  "ETB_VC_Movil": {
+    "schema": "bbdd_cos_bog_etb_auditorias_encuestas",
+    "table": "tb_asignacion_vc_movil_etb_ds",
+    "nombre_asignacion": "asignacion_movil_etb",
+
+    "telefonos": [
+      "num_cel"
+    ],
+    
+    "columnas_fecha": ["fecha_asignacion"],
+
+    "renombrar_columnas": {
+    },
+
+    "columnas_necesarias": [
+      "num_cel", "metododepago", "planvendido", "cuenta_facturacion", 
+      "numero_documento", "nombre_cliente", "fecha_asignacion", "anio",
+      "periodo", "nombre_base","hoja"
+    ],
+    
+    "table_duplicados": "tb_asignacion_vc_movil_etb_duplicate_ds",
+    "cols_duplicados": ["numero_documento", "periodo"]
+  },
+
+  "ETB_VC_Hogar": {
+    "schema": "bbdd_cos_bog_etb_auditorias_encuestas",
+    "table": "tb_asignacion_vc_hogar_etb_ds",
+    "nombre_asignacion": "asignacion_hogar_etb",
+
+    "telefonos": [
+      "fijo_1", 
+      "fijo_2", 
+      "fijo_3", 
+      "movil_1", 
+      "movil_2"
+    ],
+    
+    "columnas_fecha": ["fecha_asignacion"],
+
+    "renombrar_columnas": {
+      "falla_masiva_" : "falla_masiva"
+    },
+
+    "columnas_necesarias": [
+      "numero_documento", "nombre_cliente", "modelo_segmentacion", "tecnologia_cliente", 
+      "c_calificacion_2021", "tiene_internet", "tiene_tv", "tienen_sigle_telefono", 
+      "falla_masiva", "fijo_1", "fijo_2", "fijo_3", "movil_1", "movil_2",
+      "fecha_asignacion", "anio", "periodo", "nombre_base","hoja"
+    ],
+    
+    "table_duplicados": "tb_asignacion_vc_hogar_etb_duplicate_ds",
+    "cols_duplicados": ["numero_documento", "periodo"]
   }
+  
 }
