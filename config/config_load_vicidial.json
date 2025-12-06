@@ -1,28 +1,28 @@
 {
 
-  "ALLIANZ": {
+  "ETB_REDES": {
     "pass_vcdl": "1001185516",  
-    "campana": "crosseling",
-    "server_vcdl": "soulphone-nine.groupcos.com.co",
+    "campana": "etb_redes",
+    "server_vcdl": "10.57.251.70",
     
     "configuracion_listas": {
-        "campana_vicidial": "ALLIANZ",
-        "campaign_id": "ALLIANZ - 000",
-        "numero_maximo_listas": 30000000
+        "campana_vicidial": "ETB_2_3",
+        "campaign_id": "ETB_2_3 - 71",
+        "numero_maximo_listas": 999999
     },
 
     "custom_fields": {
-        "VENDOR LEAD CODE:": "\"num_documento\"",
-        "SOURCE ID:": "\"tomador\"",
+        "VENDOR LEAD CODE:": "(none)",
+        "SOURCE ID:": "(none)",
         "PHONE NUMBER:": "\"phone\"",
         "TITLE:": "(none)",
-        "FIRST NAME:": "\"nombre_completo\"",
+        "FIRST NAME:": "\"mdm\"",
         "MIDDLE INITIAL:": "(none)",
         "LAST NAME:": "(none)",
         "ADDRESS1:": "(none)",
-        "ADDRESS2:":  "\"tomador\"",
+        "ADDRESS2:":  "\"mdm\"",
         "ADDRESS3:": "(none)",
-        "CITY:": "\"departamento\"",
+        "CITY:": "(none)",
         "STATE:": "(none)",
         "PROVINCE:": "(none)",
         "POSTAL CODE:": "(none)",
@@ -30,26 +30,67 @@
         "GENDER:": "(none)",
         "DATE OF BIRTH:": "(none)",
         "ALT PHONE:": "(none)",
-        "EMAIL:": "\"email\"",
+        "EMAIL:": "(none)",
         "SECURITY PHRASE:": "(none)",
         "COMMENTS:": "(none)",
         "RANK:": "(none)",
         "OWNER:": "(none)",
-        "NOMBRECLIENTE:": "\"nombre_completo\"",
-        "NUMDOCUMENTO:": "\"num_documento\"",
-        "ESTADOCIVIL:": "\"estado_civil\"",
-        "GENERO:": "\"genero\"",
-        "TOMADOR:": "\"tomador\"",
-        "EDADCLIENTE:": "\"edad\"", 
-        "TEL1ORG:": "\"phone\"",
-        "PROFESION:": "\"profesion\"",
-        "BENEFICIO:": "\"beneficio\"",
-        "INTERMEDIARIOAGENTE:": "\"agente\"",
-        "CLAVEINTERMEDIARIO:": "\"clave\"",
-        "TELEFONOINTERMEDIARIO:": "\"telefono_intermediario\"",
-        "CORREO DELINTERMEDIARIO:": "\"correo_del_intermediario\"",
-        "DIRECTORCOMERCIAL:": "\"director_comercial\"",
-        "CORREODIRECTORCOMERCIAL:": "\"correo_director_comercial\""
+        "FECHACOMPLETADO:": "\"completado\"",
+        "NOMBREDELCLIENTE:": "\"nombre_cliente\"",
+        "TIPODECONTACTO:": "(none)",
+        "REDSOCIALDECONTACTO:": "\"red_social_de_contacto\"",
+        "CATEGORIADECONTACTO:": "\"categoria_de_contacto\"",
+        "CELULARDELCLIENTE:": "\"phone\"",
+        "NUMERO IDENTIFICACION:": "\"numero_identificacion\"",
+        "MDM:": "\"mdm\"",
+        "MES:": "\"mes\"",
+        "ANO:": "\"anio\""
+      } 
+  },
+
+  "ETB_APP": {
+    "pass_vcdl": "1001185516",  
+    "campana": "etb_app",
+    "server_vcdl": "10.57.251.70",
+    
+    "configuracion_listas": {
+        "campana_vicidial": "ETB_2_1",
+        "campaign_id": "ETB_2_1 - 71",
+        "numero_maximo_listas": 6000
+    },
+
+    "custom_fields": {
+        "VENDOR LEAD CODE:": "(none)",
+        "SOURCE ID:": "(none)",
+        "PHONE NUMBER:": "\"phone\"",
+        "TITLE:": "(none)",
+        "FIRST NAME:": "\"identificador\"",
+        "MIDDLE INITIAL:": "(none)",
+        "LAST NAME:": "(none)",
+        "ADDRESS1:": "(none)",
+        "ADDRESS2:":  "\"identificador\"",
+        "ADDRESS3:": "(none)",
+        "CITY:": "(none)",
+        "STATE:": "(none)",
+        "PROVINCE:": "(none)",
+        "POSTAL CODE:": "(none)",
+        "COUNTRY CODE:": "(none)",
+        "GENDER:": "(none)",
+        "DATE OF BIRTH:": "(none)",
+        "ALT PHONE:": "(none)",
+        "EMAIL:": "(none)",
+        "SECURITY PHRASE:": "(none)",
+        "COMMENTS:": "(none)",
+        "RANK:": "(none)",
+        "OWNER:": "(none)",
+        "FECHA TRANSACCION:": "\"fecha_transaccion\"",
+        "NOMBRE CLIENTE:": "\"nombre_cliente\"",
+        "TELEFONO CONTACTO MOVIL:": "\"phone\"",
+        "PLAN:": "\"plan\"",
+        "IDENTIFICADOR:": "\"identificador\"",
+        "USUARIO MIETB:": "\"usuario_mietb\"",
+        "MES:": "\"mes\"",
+        "ANO:": "\"anio\""
       } 
   }
 }

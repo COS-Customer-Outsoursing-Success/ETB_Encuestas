@@ -21,14 +21,14 @@ class ExporteFormulario:
         """
         Muestra un menú interactivo para seleccionar la campaña a exportar
         """
-        print("\n" + "="*70)
+        print("\n" + "="*40)
         print("📋 CAMPAÑAS DISPONIBLES PARA EXPORTAR")
-        print("="*70)
+        print("="*40)
         
         for i, campana in enumerate(config_formulario.keys(), 1):
             print(f"  {i}. 📌 {campana}")
         
-        print("="*70)
+        print("="*40)
 
         seleccion = input("\n👉 Seleccione el número de la campaña a ejecutar: ")
         adicional = input("📝 Información adicional sobre lista (opcional): ")
@@ -37,13 +37,13 @@ class ExporteFormulario:
             seleccion = int(seleccion)
             campana = list(config_formulario.keys())[seleccion - 1]
             
-            print("\n" + "="*70)
+            print("\n" + "="*40)
             print("✅ CAMPAÑA SELECCIONADA")
-            print("="*70)
+            print("="*40)
             print(f"🎯 Campaña: {campana}")
             if adicional:
                 print(f"📝 Info adicional: {adicional}")
-            print("="*70 + "\n")
+            print("="*40 + "\n")
             
             return campana, adicional
         except (ValueError, IndexError):
@@ -65,14 +65,14 @@ class ExporteFormulario:
             nombre_archivo = f"{campana_key} - {hoy_formateado}_{adicional}" if adicional else f"{campana_key} - {hoy_formateado}"
             sql_path = os.path.join(current_folder, 'sql', f"_sql_depurador_predictivo_{campana_sql}.sql")
 
-            print("\n" + "-"*70)
+            print("\n" + "-"*40)
             print("🔄 CONFIGURACIÓN DE EXPORTACIÓN")
-            print("-"*70)
+            print("-"*40)
             print(f"🗄️  Base de datos: {schema}")
             print(f"📁 Carpeta salida: {folder_salida}")
             print(f"📄 Archivo: {nombre_archivo}.csv")
             print(f"📜 Script SQL: _sql_depurador_predictivo_{campana_sql}.sql")
-            print("-"*70 + "\n")
+            print("-"*40 + "\n")
 
             print("🔄 Ejecutando exportación...\n")
 
@@ -84,12 +84,12 @@ class ExporteFormulario:
             )
             processor.exportar_csv()
 
-            print("\n" + "="*70)
+            print("\n" + "="*40)
             print("✅ EXPORTACIÓN COMPLETADA")
-            print("="*70)
+            print("="*40)
             print(f"📁 Archivo guardado en: {folder_salida}")
             print(f"📄 Nombre: {nombre_archivo}.csv")
-            print("="*70 + "\n")
+            print("="*40 + "\n")
 
         except FileNotFoundError as e:
             print(f"\n❌ Error: No se encontró el archivo SQL")
@@ -103,21 +103,11 @@ class ExporteFormulario:
 
 
 if __name__ == '__main__':
-    print("\n" + "#"*70)
-    print("#" + " "*68 + "#")
-    print("#" + " "*15 + "🚀 EXPORTACIÓN DE DATOS PARA VICIDIAL" + " "*17 + "#")
-    print("#" + " "*68 + "#")
-    print("#"*70 + "\n")
     
     campana, adicional = ExporteFormulario.elegir_campana()
     
     if campana:
         ExporteFormulario.exportar_xlsx_vicidial(campana, adicional)
-        
-        print("\n" + "#"*70)
-        print("#" + " "*68 + "#")
-        print("#" + " "*15 + "✅ PROCESO COMPLETADO EXITOSAMENTE" + " "*18 + "#")
-        print("#" + " "*68 + "#")
-        print("#"*70 + "\n")
+
     else:
         print("\n❌ No se pudo ejecutar la exportación\n")

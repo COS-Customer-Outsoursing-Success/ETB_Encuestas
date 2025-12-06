@@ -23,12 +23,21 @@ class WebScraping_Chrome:
         options.add_argument("--disable-gpu")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--no-sandbox")
+        options.add_argument("--disable-infobars")
+        options.add_argument("--disable-extensions")
         prefs = {
             "download.prompt_for_download": False,
             "download.directory_upgrade": True,
-            "safebrowsing.enabled": True
+            "safebrowsing.enabled": True,
+            "profile.default_content_setting_values.notifications": 2,
+            "profile.default_content_settings.popups": 0,
+            "profile.default_content_setting_values.media_stream_mic": 2,
+            "profile.default_content_setting_values.media_stream_camera": 2,
+            "profile.default_content_setting_values.geolocation": 2
         }
         options.add_experimental_option("prefs", prefs)
+        options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+        options.add_experimental_option("useAutomationExtension", False)
         service = Service(executable_path=driver_path)
         driver = webdriver.Chrome(service=service, options=options)
         driver.maximize_window()
@@ -47,9 +56,12 @@ class WebScraping_Chrome:
             "download.default_directory": download_path,
             "download.prompt_for_download": False,
             "download.directory_upgrade": True,
-            "safebrowsing.enabled": True
+            "safebrowsing.enabled": True,
+            "profile.default_content_setting_values.notifications": 2,
+            "profile.default_content_settings.popups": 0
         }
         options.add_experimental_option("prefs", prefs)
+        options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
         service = Service(executable_path=driver_path)
         driver = webdriver.Chrome(service=service, options=options)
         driver.maximize_window()
@@ -61,6 +73,12 @@ class WebScraping_Chrome:
         options.add_argument(f"--user-data-dir={profile_path}")
         options.add_argument("--disable-popup-blocking")
         options.add_argument("--disable-notifications")
+        prefs = {
+            "profile.default_content_setting_values.notifications": 2,
+            "profile.default_content_settings.popups": 0
+        }
+        options.add_experimental_option("prefs", prefs)
+        options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
         service = Service(executable_path=driver_path)
         driver = webdriver.Chrome(service=service, options=options)
         driver.maximize_window()

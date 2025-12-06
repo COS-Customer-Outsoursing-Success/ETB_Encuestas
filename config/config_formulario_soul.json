@@ -1,31 +1,49 @@
 {
-    "Crosseling" : {
+    "ETB REDES" : {
 
-        "campana": "Crosseling",
+        "campana": "ETB",
         "crm": "CRM2",
-        "nombre_formulario" : "ALLIANZ",
+        "nombre_formulario" : "REDES SOCIALES ETB v3 CRM2",
         "mapping": {
 
-            "tomador": "TOMADOR",
-            "nombre_cliente": "NOMBRE CLIENTE",
-            "num_documento": "NUM DOCUMENTO",
-            "tel1_org": "Tel1_Org",
-            "tel2_org": "Tel2_Org",
-            "tel3_org": "Tel3_Org",
-            "correo": "CORREO",
-            "edad": "EDAD",
-            "municipio": "MUNICIPIO",
-            "departamento": "DEPARTAMENTO",
-            "genero": "GENERO",
-            "tipo_documento": "TIPO DOCUMENTO",
-            "mix": "Mix",
-            "cross": "Cross",
-            "clave": "Clave",
-            "agente": "Agente",
-            "telefono_intermediario": "Telefono intermediario",
-            "correo_del_intermediario": "Correo del intermediario",
-            "correo_director_comercial": "Correo Director Comercial"
+            "id": "ID",
+            "red_social_de_contacto": "Red social de contacto",
+            "completado": "Fecha completado",
+            "asesor": "Asesor",
+            "categoria_de_contacto": "Categoría de contacto",
+            "informacion": "Información",
+            "fallas_tecnicas": "Fallas técnicas",
+            "mdm": "MDM",
+            "numero_identificacion": "Número identificación",
+            "nombre_cliente": "Nombre del cliente",
+            "telefono_fijo": "Teléfono contacto 2",
+            "celular": "Celular del cliente",
+            "telefono_complementario": "Teléfono contacto 3",
+            "mes": "Mes cierre",
+            "anio": "Año cierre"
 
+        }
+    },
+
+    "ETB APP" : {
+
+        "campana": "ETB",
+        "crm": "CRM2",
+        "nombre_formulario" : "APP-WEB ETB v3 CRM2",
+        "mapping": {
+
+            "identificador":"Identificador",
+            "fecha_transaccion":"Fecha Transacción",
+            "tipo_transaccion":"Tipo de Transacción",
+            "canal_1":"Canal",
+            "segmento":"Segmento",
+            "numero_conexion":"Numero de conexión",
+            "nombre_cliente":"Nombre cliente",
+            "telefono":"Telefono contacto",
+            "plan":"Plan",
+            "usuario_mietb":"Usuario miETB",
+            "mes":"Mes cierre",
+            "anio":"Año cierre"
         }
     }
 }

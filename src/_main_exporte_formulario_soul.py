@@ -1,5 +1,6 @@
 """
 Created By Emerson Aguilar Cruz
+Modificado por Juan David Ramirez - Segmentación automática Soul
 """
 
 import os
@@ -41,11 +42,14 @@ class ExporteFormulario:
             nombre_archivo = campana
             sql_path = os.path.join(current_folder, 'sql', f"_sql_formulario_soul_{campana}.sql")
 
+            # Activar segmentación automática Soul
             processor = ExportarSql(
                 schema=schema,
                 sql_path=sql_path,
                 folder_salida=folder_salida,
-                nombre_archivo=nombre_archivo
+                nombre_archivo=nombre_archivo,
+                segmentar_soul=True,
+                campana=campana
             )
             processor.exportar_excel()
 

@@ -1,3 +1,4 @@
+/*
 WITH base AS (
     SELECT *,
         CASE 
@@ -6,40 +7,23 @@ WITH base AS (
             OR 
             excluir_soul = 1
 				)
-/*              OR placa IN (
-					SELECT placa 
-					FROM bbdd_cos_bog_grupo_axa.tb_asignacion_falabella_v2_no_aptos 
-					WHERE periodo = 202511
-              )
-              OR phone IN ( 
-					SELECT 
-						phone_number_dialed 
-                    FROM bbdd_cos_bog_grupo_axa.tb_markings_2300_daily
-					WHERE campana = 'Falabella'
-                    )
-*/
             THEN 1 ELSE 0 
         END AS exclusiones_general
-    FROM bbdd_cos_bog_allianz.tb_asignacion_crosseling_vida_deudor_coalesce
-    WHERE periodo = 202511
+    FROM bbdd_cos_bog_etb_auditorias_encuestas.tb_asignacion_app_etb_coalesce_ds
+    WHERE periodo = 202512
 )
 , consolidados AS (
     SELECT *,
            MAX(exclusiones_general) OVER(PARTITION BY phone) AS exclusion_total
     FROM base
 )
-/*
-SELECT 
-*
-FROM consolidados
-WHERE exclusion_total = 0
 */
 
 -- -----------------------------------------------------------------------------------------
 -- Predictivo Sin Gestion: Descomentar colocando un # al inicio de los simbolos "/*" ---- --
 -- -----------------------------------------------------------------------------------------
 /*
-	AND tipo_phone IN ('tel1_org') #,'tel2_org'
+	AND tipo_phone IN ('telefono_contacto_movil')
 	AND (
 		vicidial_calls = 0 
         OR 
@@ -53,17 +37,17 @@ WHERE exclusion_total = 0
 -- Predictivo No Contacto: Descomentar colocando un # al inicio de los simbolos "/*" ---- --
 -- -----------------------------------------------------------------------------------------
 /*
-	AND tipo_phone IN ('tel1_org') #,'telefono2'
+	AND tipo_phone IN ('telefono_contacto_movil')
     
 	AND ( 
-    vicidial_calls <= 20
+    vicidial_calls <= 15
     )
 
-#    AND (
-#    tipificacion_mejor_gestion_soul IN ('No contesta')#, 'Cliente Cuelga La Llamada')
-#    OR 
-#    tipificacion_mejor_gestion_soul IS NULL
-#    )
+    AND (
+    tipificacion_mejor_gestion_soul IN ('No contesta', 'Cliente Cuelga La Llamada')
+    OR 
+    tipificacion_mejor_gestion_soul IS NULL
+    )
     
 #	AND tipificacion_mejor_gestion IN ('Agent Not Available', 'Agent Altnum', 'No Contacto','ADAIR')    
 #	AND tipificacion_mejor_gestion NOT IN ('Agent Not Available', 'Agent Altnum', 'No Contacto','ADAIR')
@@ -81,33 +65,54 @@ WHERE exclusion_total = 0
 -- Descarmar para asignacion inicial y cargue de base nueva en vicidial sin depure
 -- --------------------------------------------------------------------------------------------------------------
 #/*
+WITH base AS (
+    SELECT
+        fecha_transaccion,
+        nombre_cliente,
+        REGEXP_REPLACE(telefono_contacto_movil, '[^0-9]', '') AS telefono_limpio,
+        plan,
+        usuario_mietb,
+        fecha_asignacion
+    FROM bbdd_cos_bog_etb_auditorias_encuestas.tb_asignacion_app_etb_ds
+),
+validos AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (
+            PARTITION BY telefono_limpio
+            ORDER BY fecha_transaccion DESC
+        ) AS rn
+    FROM base
+    WHERE fecha_asignacion >= CURDATE()
+      AND usuario_mietb IS NOT NULL
+      AND usuario_mietb <> '-'
+      AND telefono_limpio <> ''
+      AND LENGTH(telefono_limpio) = 10
+      AND telefono_limpio NOT REGEXP '^([0-9])\\1{9}$'
+      AND telefono_limpio NOT REGEXP '([0-9])\\1{6,}'
+)
 SELECT
-	documento,
-	COALESCE(
-		NULLIF(NULLIF(NULLIF(telefono, ''), '0'), '-'),
-		NULLIF(NULLIF(NULLIF(telefono2, ''), '0'), '-'),
-		NULLIF(NULLIF(NULLIF(telefono3, ''), '0'), '-')
-	) AS phone,
-	nombre,
-	poliza,
-	placa,
-    email
-FROM bbdd_cos_bog_allianz.tb_asignacion_crosseling_vida_deudor
-WHERE fecha_asignacion >= CURDATE()
-  AND (
-        (telefono IS NOT NULL AND telefono NOT IN ('', '0', '-')) 
-        OR (telefono2 IS NOT NULL AND telefono2 NOT IN ('', '0', '-')) 
-        OR (telefono3 IS NOT NULL AND telefono3 NOT IN ('', '0', '-'))
-      );
+    fecha_transaccion,
+    nombre_cliente,
+    telefono_limpio AS phone,
+    plan,
+    CONCAT(
+        usuario_mietb,
+        DATEDIFF(fecha_transaccion, '1899-12-30')
+    ) AS identificador,
+    YEAR(fecha_transaccion) AS anio,
+    MONTHNAME(fecha_transaccion) AS mes,
+    usuario_mietb
+FROM validos
+WHERE rn = 1
+GROUP BY usuario_mietb;
 #*/
 
 /*
 ORDER BY 
     CASE 
-        WHEN tipo_phone = 'telefono' AND (vicidial_calls <= 3 OR vicidial_calls IS NULL) THEN 1
-        WHEN tipo_phone IN ('telefono2', 'telefono3') THEN 2
-        WHEN tipo_phone = 'telefono' AND vicidial_calls > 3 THEN 3
-        ELSE 4
+        WHEN tipo_phone = 'telefono_contacto_movil' AND (vicidial_calls <= 3 OR vicidial_calls IS NULL) THEN 1
+        ELSE 2
     END ASC,
     vicidial_calls ASC
 ;

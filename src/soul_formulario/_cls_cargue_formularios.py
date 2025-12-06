@@ -24,6 +24,10 @@ class FormulariosSoul():
             'Documents',
             'chromedriver.exe'
         )
+        
+        # Crear carpeta para perfil de Chrome persistente
+        self.chrome_profile_path = os.path.join(self.project_root, 'data', 'chrome_profile_soul')
+        os.makedirs(self.chrome_profile_path, exist_ok=True)
 
         self.config_json_path = os.path.join(self.project_root, 'config', 'config_formulario_soul.json')
         with open(self.config_json_path, 'r', encoding='utf-8') as f:
@@ -48,7 +52,7 @@ class FormulariosSoul():
 
         self.campana_config = self.config_soul[self.campana_seleccionada]
         
-        self.url = 'https://mysoul.groupcos.com/login'
+        self.url = 'https://www.mysoul.software/login'
         
         self.usuario = usuario
         self.contrasena = contrasena
@@ -70,8 +74,26 @@ class FormulariosSoul():
     def buscar_formulario(self):
 
         try:
-            driver = WebScraping_Chrome.Webdriver_ChrDP(self.driver_path)
-            WebScraping_Chrome.WebScraping_Acces(driver, self.url)
+            # Usar EXACTAMENTE la misma configuración que el setup
+            from selenium import webdriver
+            from selenium.webdriver.chrome.service import Service
+            
+            options = webdriver.ChromeOptions()
+            options.add_argument(f"--user-data-dir={self.chrome_profile_path}")
+            options.add_argument("--disable-popup-blocking")
+            options.add_argument("--disable-blink-features=AutomationControlled")
+            prefs = {
+                "profile.default_content_setting_values.notifications": 2,
+                "profile.default_content_settings.popups": 0
+            }
+            options.add_experimental_option("prefs", prefs)
+            options.add_experimental_option("excludeSwitches", ["enable-automation", "enable-logging"])
+            service = Service(executable_path=self.driver_path)
+            driver = webdriver.Chrome(service=service, options=options)
+            driver.maximize_window()
+            
+            driver.get(self.url)
+            time.sleep(3)
             
             WebScraping_Chrome.WebScraping_WaitCSS(driver, 150, 'input[formcontrolname="user"]')
             WebScraping_Chrome.WebScraping_SendKeysCSS(driver, 'input[formcontrolname="user"]', self.usuario) 
@@ -93,14 +115,47 @@ class FormulariosSoul():
 
             WebScraping_Chrome.WebScraping_WaitTextCSS(driver, 150, 'button.mat-focus-indicator[mat-menu-item]', self.crm)
             WebScraping_Chrome.WebScraping_ClickByTextCSS(driver, 'button.mat-focus-indicator[mat-menu-item]', self.crm)
-            time.sleep(1)
-
-            WebScraping_Chrome.WebScraping_WaitClickableCSS(driver, 150, 'a.mat-list-item.mat-focus-indicator')
-            driver.refresh()
+            time.sleep(2)
             
+            # Cerrar el popup de notificaciones si aparece
+            try:
+                # Buscar el botón OK del popup de notificaciones
+                ok_button = driver.find_element(By.XPATH, "//button[contains(text(), 'OK')]")
+                ok_button.click()
+                print("✅ Popup de notificaciones cerrado")
+                time.sleep(2)
+            except:
+                print("ℹ️ No apareció popup de notificaciones")
+                time.sleep(1)
+
+            # Esperar a que desaparezca el overlay si existe
+            try:
+                from selenium.webdriver.support.ui import WebDriverWait
+                from selenium.webdriver.support import expected_conditions as EC
+                WebDriverWait(driver, 10).until(
+                    EC.invisibility_of_element_located((By.CSS_SELECTOR, 'div.overlay'))
+                )
+                print("✅ Overlay desaparecido")
+                time.sleep(2)
+            except:
+                time.sleep(2)  # Si no hay overlay, solo esperar
+            
+            # Ahora sí hacer click en Formularios
             WebScraping_Chrome.WebScraping_WaitClickableCSS(driver, 150, 'a.mat-list-item.mat-focus-indicator')
             WebScraping_Chrome.WebScraping_ClickByTextCSS(driver, 'a.mat-list-item.mat-focus-indicator', 'Formularios')
-            time.sleep(1)
+            print("✅ Click en Formularios")
+            time.sleep(5)  # Esperar más tiempo a que cargue la página
+            
+            # Esperar a que la página de formularios cargue completamente
+            try:
+                WebScraping_Chrome.WebScraping_WaitCSS(driver, 30, 'mat-select')
+                print("✅ Página de formularios cargada")
+            except Exception as e:
+                print(f"❌ No se encontró mat-select: {e}")
+                print(f"📍 URL actual: {driver.current_url}")
+                # Tomar screenshot para debug
+                driver.save_screenshot(os.path.join(self.project_root, 'data', 'debug_formularios.png'))
+                raise
 
             WebScraping_Chrome.WebScraping_ScrollIntoViewCSS(driver, 'mat-select')
             WebScraping_Chrome.WebScraping_WaitClickableCSS(driver, 10, 'mat-select')
@@ -126,15 +181,30 @@ class FormulariosSoul():
         try:
             WebScraping_Chrome.WebScraping_WaitClickableCSS(self.driver, 150, 'button[aria-label="Toggle menu"]')
             WebScraping_Chrome.WebScraping_ClickCSS(self.driver, 'button[aria-label="Toggle menu"]')
-            time.sleep(0.5)
+            print("✅ Click en Toggle menu")
+            time.sleep(1)
         
             WebScraping_Chrome.WebScraping_WaitClickableCSS(self.driver, 150, 'button.mat-menu-item')
             WebScraping_Chrome.WebScraping_ClickByTextCSS(self.driver, 'button.mat-menu-item', 'Crear base de datos')
-            time.sleep(0.3)
-
-            file_input = self.driver.find_element(By.CSS_SELECTOR, 'input[type="file"]')
+            print("✅ Click en Crear base de datos")
+            time.sleep(3)
+            
+            # Buscar el input de archivo por ID (está oculto, por eso no lo encuentra el wait)
+            try:
+                file_input = self.driver.find_element(By.ID, 'file')
+                print("✅ Input de archivo encontrado por ID")
+            except:
+                # Si no existe por ID, buscar por type
+                file_input = self.driver.find_element(By.CSS_SELECTOR, 'input[type="file"]')
+                print("✅ Input de archivo encontrado por type")
+            
+            # Hacer visible el input y cargar archivo
             self.driver.execute_script("arguments[0].style.display = 'block';", file_input)
+            self.driver.execute_script("arguments[0].style.visibility = 'visible';", file_input)
+            self.driver.execute_script("arguments[0].style.opacity = '1';", file_input)
             file_input.send_keys(self.archivo_excel)
+            print(f"✅ Archivo cargado: {os.path.basename(self.archivo_excel)}")
+            time.sleep(2)
         
         except Exception as e:
             print(f"Error: Error al cargar el formulario debido a {e}")

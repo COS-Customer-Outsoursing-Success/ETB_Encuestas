@@ -305,7 +305,7 @@ class LoadListVcdl:
                 print("Enviando para el cargue final...")
                 WebScraping_Chrome.WebScraping_Wait(driver, 150, self.config_xpaths["xpath_submit_cargar_final"])
                 WebScraping_Chrome.WebScraping_Nav(driver, self.config_xpaths["xpath_submit_cargar_final"])
-                time.sleep(1)
+                time.sleep(5)
 
                 print("Esperando finalización de carga...")
                 WebScraping_Chrome.WebScraping_Wait(driver, 150, self.config_xpaths["xpath_cargado_final"])

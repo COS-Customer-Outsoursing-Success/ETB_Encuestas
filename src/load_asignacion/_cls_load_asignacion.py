@@ -156,8 +156,13 @@ class LoadAsignacion:
             print("="*50)
 
             # Leer Y CERRAR automáticamente con with
-            with pd.ExcelFile(latest_file_path) as xls:
-                self.df = pd.read_excel(xls, sheet_name=hoja_sel)
+            # Para ETB_APP, tomar fila 4 (índice 3) como header
+            if self.campana_seleccionada == 'ETB_APP':
+                with pd.ExcelFile(latest_file_path) as xls:
+                    self.df = pd.read_excel(xls, sheet_name=hoja_sel, header=3)
+            else:
+                with pd.ExcelFile(latest_file_path) as xls:
+                    self.df = pd.read_excel(xls, sheet_name=hoja_sel)
             
             # Limpiar headers
             self.df.columns = reader._clean_headers(self.df).columns
@@ -228,15 +233,35 @@ class LoadAsignacion:
                 if pd.isna(x) or x == '-' or x is None:
                     return '-'
                 x = str(x).strip()
+                
                 # Limpiar caracteres raros como "?"
                 x = x.replace('?', '').replace('¿', '').replace('�', '')
-                # Eliminar espacios y caracteres no numéricos (excepto +)
-                x = ''.join(c for c in x if c.isdigit() or c == '+')
+                
+                # Eliminar espacios internos
+                x = x.replace(' ', '')
+                
+                # Eliminar el símbolo + si existe
+                x = x.replace('+', '')
+                
+                # Solo quedarnos con dígitos
+                x = ''.join(c for c in x if c.isdigit())
+                
                 # Si quedó vacío, retornar -
                 if not x or x == '':
                     return '-'
-                # Agregar prefijo si es número de 7 dígitos
-                x = '601' + x if len(x) == 7 and x.isdigit() else x
+                
+                # Eliminar 57 del inicio (Colombia)
+                if x.startswith('57') and len(x) > 10:
+                    x = x[2:]  # Quitar los primeros 2 caracteres (57)
+                
+                # Eliminar 0 del final si tiene más de 10 dígitos
+                if x.endswith('0') and len(x) > 10:
+                    x = x[:-1]  # Quitar el último carácter (0)
+                
+                # Agregar prefijo 601 si es número de Bogotá de 7 dígitos
+                if len(x) == 7 and x.isdigit():
+                    x = '601' + x
+                
                 return x
 
             for col in telefonos:
